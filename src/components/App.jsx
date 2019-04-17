@@ -12,7 +12,7 @@ class App extends Component {
     state = {
         page: 'pending',
         userName: null,
-        arrData: null,
+        arrData: [],
         inputs: {
             id: '',
             fname: '',
@@ -34,7 +34,9 @@ class App extends Component {
                                 return {arrData};
                             });
                         })
-                        .catch();
+                        .catch(error => {
+
+                        });
                 } else {
                     return {page: 'login'};
                 }
@@ -43,26 +45,28 @@ class App extends Component {
     }
 
     idChange = (e) => {
+        const value = e.target.value;
+        console.log(e.target)
         this.setState(() => {
-            return {inputs: {id: e.current.value}};
+            return {inputs: {id: value}};
         });
     }
 
     fnameChange = (e) => {
         this.setState(() => {
-            return {inputs: {fname: e.current.value}};
+            return {inputs: {fname: e.target.value}};
         });
     }
 
     lnameChange = (e) => {
         this.setState(() => {
-            return {inputs: {lname: e.current.value}};
+            return {inputs: {lname: e.target.value}};
         });
     }
 
     ageChange = (e) => {
         this.setState(() => {
-            return {inputs: {age: e.current.value}};
+            return {inputs: {age: e.target.value}};
         });
     }
 

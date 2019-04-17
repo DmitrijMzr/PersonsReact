@@ -3,6 +3,7 @@ function requestServerToPerson () {
     request.open("GET", "http://localhost:4000/currentUser", true);
     request.send();
     return new Promise((resolve, reject) => {
+        //resolve({authorized: true, userName: 'SomeUser'});
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
                 if (request.status === 200 && request.status < 300) {
