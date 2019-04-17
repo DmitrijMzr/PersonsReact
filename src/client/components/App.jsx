@@ -10,7 +10,7 @@ import {requestServerToPerson, requestServerToData} from './logic';
 
 class App extends Component {
     state = {
-        page: 'pending',
+        page: 'login',
         userName: null,
         arrData: [],
         inputs: {
@@ -82,11 +82,11 @@ class App extends Component {
         }
 
         if (page === 'login') {
-            return <LoginForm/>;
+            return <div className="loginForm"><LoginForm/></div>;
         }
 
         if (page === 'register') {
-            return <RegistrationForm/>;
+            return <div className="loginForm"><RegistrationForm/></div>;
         }
 
         if (page === 'main') {
