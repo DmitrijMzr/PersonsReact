@@ -1,0 +1,81 @@
+{
+  "name": "todotest",
+  "version": "1.0.0",
+  "description": "todo test examples",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "webpack --mode production",
+    "test": "mocha --opts ./config/mocha.opts",
+    "test-cov": "nyc -e .jsx mocha --opts ./config/mocha.opts",
+    "update-snapshots": "mocha --opts ./config/mocha.opts src/**/*.test.js --require mocha-snapshots --update"
+  },
+  "author": "Stukalo Oleksandr",
+  "license": "ISC",
+  "nyc": {
+    "check-coverage": false,
+    "per-file": true,
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "reporter": [
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "require": [
+      "@babel/register"
+    ],
+    "exclude": [
+      "coverage/**",
+      "test/**",
+      "test{,-*}.js",
+      "**/*.test.js",
+      "**/__tests__/**",
+      "**/node_modules/**",
+      "**/__snapshots__/**",
+      ".nyc_output/**",
+      ".nyc_output-tmp/**",
+      "config/mocha-setup.js",
+      "config/mocha.opts",
+      "**/mockData/**"
+    ],
+    "cache": true,
+    "all": false,
+    "temp-directory": "./.nyc_output-tmp",
+    "report-dir": "./.nyc_output"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.0",
+    "babel-loader": "^8.0.5",
+    "chai": "^4.2.0",
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "html-webpack-plugin": "^3.2.0",
+    "jsdom": "^14.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mocha": "^6.0.2",
+    "mocha-snapshots": "^4.2.0",
+    "nyc": "^13.3.0",
+    "prop-types": "^15.7.2",
+    "sinon": "^7.3.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  }
+}
