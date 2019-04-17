@@ -13,6 +13,12 @@ class App extends Component {
         page: 'pending',
         userName: null,
         arrData: null,
+        inputs: {
+            id: '',
+            fname: '',
+            lname: '',
+            age: ''
+        }
     };
 
     componentDidMount() {
@@ -36,9 +42,37 @@ class App extends Component {
             .catch();
     }
 
+    idChange = (e) => {
+        this.setState(() => {
+            return {inputs: {id: e.current.value}};
+        });
+    }
+
+    fnameChange = (e) => {
+        this.setState(() => {
+            return {inputs: {fname: e.current.value}};
+        });
+    }
+
+    lnameChange = (e) => {
+        this.setState(() => {
+            return {inputs: {lname: e.current.value}};
+        });
+    }
+
+    ageChange = (e) => {
+        this.setState(() => {
+            return {inputs: {age: e.current.value}};
+        });
+    }
+
+    create = () => {
+
+    }
+
     render() {
         const {page, userName, arrData} = this.state;
-
+        const {id, fname, lname, age} = this.state.inputs;
         if (page === 'pending') {
             return <div>Loading...</div>;
         }
@@ -56,9 +90,18 @@ class App extends Component {
                 <React.Fragment>
                     <Header userName={userName}/>
                     <div className='main'>
-                        <CreatePersons/>
+                        <CreatePersons
+                            idChange = {this.idChange}
+                            fnameChange = {this.fnameChange}
+                            lnameChange = {this.lnameChange}
+                            ageChange = {this.ageChange}
+                            id = {id}
+                            fname = {fname}
+                            lname = {lname}
+                            age = {age}
+                        />
                         <DataTable arrData = {arrData}/>
-                        <Buttons/>
+                        <Buttons create = {this.create}/>
                     </div>
                 </React.Fragment>
             );
