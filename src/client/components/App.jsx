@@ -7,10 +7,11 @@ import Buttons from "./buttons/buttons";
 import LoginForm from "./loginForm/loginForm";
 import RegistrationForm from "./registrationForm/registrationForm";
 import {requestServerToPerson, requestServerToData} from './logic';
+import Loading from "./loading/loading";
 
 class App extends Component {
     state = {
-        page: 'login',
+        page: 'pending',
         userName: null,
         arrData: [],
         inputs: {
@@ -41,7 +42,9 @@ class App extends Component {
                     return {page: 'login'};
                 }
             })
-            .catch();
+            .catch(() => {
+                console.log('sever not found');
+            });
     }
 
     idChange = (e) => {
@@ -78,7 +81,7 @@ class App extends Component {
         const {page, userName, arrData} = this.state;
         const {id, fname, lname, age} = this.state.inputs;
         if (page === 'pending') {
-            return <div>Loading...</div>;
+            return <Loading />;
         }
 
         if (page === 'login') {

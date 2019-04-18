@@ -1,7 +1,11 @@
 function requestServerToPerson () {
     const request = new XMLHttpRequest();
     request.open("GET", "http://localhost:4000/currentUser", true);
-    request.send();
+    try {
+        request.send();
+    } catch (e) {
+        console.log('server not found')
+    }
     return new Promise((resolve, reject) => {
         //resolve({authorized: true, userName: 'SomeUser'});
         request.onreadystatechange = function () {
@@ -12,6 +16,8 @@ function requestServerToPerson () {
                         resolve({authorized: true, userName: arrResponse[0]});
                         //userName.innerHTML = `Hello, ${}!`;
                     } else {
+                        console.log('not authorized')
+                        //setTimeout(() => resolve({authorized: false}), 5000);
                         resolve({authorized: false});
                         //userName.innerHTML = `Guest account!`;
                     }
