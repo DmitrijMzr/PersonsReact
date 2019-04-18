@@ -7,7 +7,7 @@ function requestServerToPerson () {
         console.log('server not found')
     }
     return new Promise((resolve, reject) => {
-        //resolve({authorized: true, userName: 'SomeUser'});
+        resolve({authorized: true, userName: 'SomeUser'});
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
                 if (request.status === 200 && request.status < 300) {

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 
 import Header from './header/header';
 import CreatePersons from "./createPersons/createPersons";
@@ -19,7 +19,8 @@ class App extends Component {
             fname: '',
             lname: '',
             age: ''
-        }
+        },
+        buttonName: 'TodoList'
     };
 
     componentDidMount() {
@@ -39,7 +40,7 @@ class App extends Component {
 
                         });
                 } else {
-                    return {page: 'login'};
+                    this.setState(() => ({page: 'login'}));
                 }
             })
             .catch(() => {
@@ -77,6 +78,23 @@ class App extends Component {
 
     }
 
+    toggleButton = () =>{
+        this.setState((state) =>{
+            if (state.page === 'main'){
+                return {page: 'todoList', buttonName: 'Persons'};
+            }
+            if(state.page === 'todoList'){
+                return {page: 'main', buttonName: 'TodoList'};
+            }
+        });
+    }
+
+    logout = () =>{
+        this.setState(state => {
+            return {page: 'login'};
+        });
+    }
+
     render() {
         const {page, userName, arrData} = this.state;
         const {id, fname, lname, age} = this.state.inputs;
@@ -95,7 +113,7 @@ class App extends Component {
         if (page === 'main') {
             return (
                 <React.Fragment>
-                    <Header userName={userName}/>
+                    <Header userName={userName} logout={this.logout}/>
                     <div className='main'>
                         <CreatePersons
                             idChange = {this.idChange}
@@ -109,9 +127,19 @@ class App extends Component {
                         />
                         <DataTable arrData = {arrData}/>
                         <Buttons create = {this.create}/>
+                        <button onClick={this.toggleButton}>{this.state.buttonName}</button>
                     </div>
                 </React.Fragment>
             );
+        }
+
+        if (page === 'todoList') {
+            return (
+                <Fragment>
+                <div>todo List!!!</div>
+                <button onClick={this.toggleButton}>{this.state.buttonName}</button>
+                </Fragment>
+        );
         }
     }
 }
