@@ -6,16 +6,22 @@ import DataTable from "./dataTable/dataTable";
 import Buttons from "./buttons/buttons";
 import LoginForm from "./loginForm/loginForm";
 import RegistrationForm from "./registrationForm/registrationForm";
-import {requestServerToPerson, requestServerToData} from './logic';
+import {requestServerToPerson, requestServerToData, addPersonDataDB} from './logic';
 import InputsHeader from "./todoList/headerForm/formToDo";
 import Loading from "./loading/loading";
 import {ToDoList} from "./todoList/body/listToDo";
+import MsgContext from './MsgContext';
 
 class App extends Component {
     state = {
         page: 'pending',
         userName: null,
         arrData: [],
+        msgData: {
+            msgText: '',
+            msgColor: '',
+            msgVisibility: 'hidden'
+        },
         todoItems: this.props.initItems,
         isHidden: false,
         inputs: {
@@ -27,6 +33,7 @@ class App extends Component {
         buttonName: 'TodoList'
     };
     lastIndex = 3;
+    timeoutID = null;
 
     componentDidMount() {
         requestServerToPerson()
@@ -53,34 +60,73 @@ class App extends Component {
             });
     }
 
+    hideMsg = () => {
+        this.setState(() => ({msgData: {msgVisibility: 'hidden'}}));
+    }
+
+    renderMsg = (msg, color) => {
+        this.setState(state => {
+            if (this.timeoutID !== null) {
+                clearTimeout(this.timeoutID);
+            }
+            this.timeoutID = setTimeout(this.hideMsg ,3000);
+            return {
+                msgData: {
+                    msgColor: color,
+                    msgText: msg ? msg : '',
+                    msgVisibility: 'visible'
+                }
+            };
+        });
+    }
+
     idChange = (e) => {
         const value = e.target.value;
-        console.log(e.target)
         this.setState(() => {
             return {inputs: {id: value}};
         });
     }
 
     fnameChange = (e) => {
+        const value = e.target.value;
         this.setState(() => {
-            return {inputs: {fname: e.target.value}};
+            return {inputs: {fname: value}};
         });
     }
 
     lnameChange = (e) => {
+        const value = e.target.value;
         this.setState(() => {
-            return {inputs: {lname: e.target.value}};
+            return {inputs: {lname: value}};
         });
     }
 
     ageChange = (e) => {
+        const value = e.target.value;
         this.setState(() => {
-            return {inputs: {age: e.target.value}};
+            return {inputs: {age: value}};
         });
     }
 
     create = () => {
-
+        const inputs = Object.assign(this.state.inputs, this.state.inputs);
+        const arrData = this.state.arrData;
+        const promise = addPersonDataDB(inputs, arrData);
+        if (promise instanceof Promise) {
+            promise
+                .then(res => {
+                    this.setState(() => {
+                        arrData.push(inputs);
+                        this.renderMsg('Data add', 'green');
+                        return {arrData};
+                    });
+                })
+                .catch(res => {
+                    this.renderMsg('server is unavailable', 'red');
+                });
+        } else {
+            this.renderMsg(...promise);
+        }
     }
 
     toggleButton = () =>{
@@ -175,7 +221,9 @@ class App extends Component {
                             lname = {lname}
                             age = {age}
                         />
-                        <DataTable arrData = {arrData}/>
+                        <MsgContext.Provider value = {{renderMsg: this.renderMsg, msgData: this.state.msgData}}>
+                        <DataTable arrData = {arrData} />
+                        </MsgContext.Provider>
                         <Buttons create = {this.create}/>
                         <button onClick={this.toggleButton}>{this.state.buttonName}</button>
                     </div>
