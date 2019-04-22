@@ -1,11 +1,11 @@
 import React, {Component, Fragment} from "react";
 
-import Header from './header/header';
-import CreatePersons from "./createPersons/createPersons";
-import DataTable from "./dataTable/dataTable";
-import Buttons from "./buttons/buttons";
-import LoginForm from "./loginForm/loginForm";
-import RegistrationForm from "./registrationForm/registrationForm";
+import Header from './persons/header/header';
+import CreatePersons from "./persons/createPersons/createPersons";
+import DataTable from "./persons/dataTable/dataTable";
+import Buttons from "./persons/buttons/buttons";
+import LoginForm from "./persons/loginForm/loginForm";
+import RegistrationForm from "./persons/registrationForm/registrationForm";
 import {requestServerToPerson, requestServerToData, addPersonDataDB} from './logic';
 import InputsHeader from "./todoList/headerForm/formToDo";
 import Loading from "./loading/loading";

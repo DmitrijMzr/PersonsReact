@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import MsgContext from '../MsgContext';
+import MsgContext from '../../MsgContext';
 
 class MsgBox extends Component {
     render() {
