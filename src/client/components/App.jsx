@@ -4,13 +4,14 @@ import Header from './persons/header/header';
 import CreatePersons from "./persons/createPersons/createPersons";
 import DataTable from "./persons/dataTable/dataTable";
 import Buttons from "./persons/buttons/buttons";
-import LoginForm from "./persons/loginForm/loginForm";
-import RegistrationForm from "./persons/registrationForm/registrationForm";
+import LoginForm from "./loginForm/loginForm";
+import RegistrationForm from "./registrationForm/registrationForm";
 import {requestServerToPerson, requestServerToData, addPersonDataDB} from './logic';
 import InputsHeader from "./todoList/headerForm/formToDo";
 import Loading from "./loading/loading";
 import {ToDoList} from "./todoList/body/listToDo";
 import MsgContext from './MsgContext';
+import MsgBox from './MsgBox.jsx';
 
 class App extends Component {
     state = {
@@ -58,6 +59,10 @@ class App extends Component {
             .catch(() => {
                 console.log('sever not found');
             });
+    }
+
+    login = data => {
+        this.setState(() => ({page: 'main', userName: data[0]}));
     }
 
     hideMsg = () => {
@@ -199,7 +204,11 @@ class App extends Component {
         }
 
         if (page === 'login') {
-            return <div className="loginForm"><LoginForm/></div>;
+            return (
+                <MsgContext.Provider value = {{renderMsg: this.renderMsg, msgData: this.state.msgData}}>
+                <div className="loginForm"><LoginForm login = {this.login}/></div><MsgBox/>
+                </MsgContext.Provider>
+            );
         }
 
         if (page === 'register') {
@@ -222,7 +231,8 @@ class App extends Component {
                             age = {age}
                         />
                         <MsgContext.Provider value = {{renderMsg: this.renderMsg, msgData: this.state.msgData}}>
-                        <DataTable arrData = {arrData} />
+                            <MsgBox/>
+                            <DataTable arrData = {arrData} />
                         </MsgContext.Provider>
                         <Buttons create = {this.create}/>
                         <button onClick={this.toggleButton}>{this.state.buttonName}</button>
@@ -238,7 +248,7 @@ class App extends Component {
                         <div className="app__todo">
                             <InputsHeader
                                 addItem={this.addItem}
-                                hideDoneItem={this.hideDoneItem}/>
+                                hideDoneItem={this.hideDoneItem}/><MsgBox/>
                             <ToDoList
                                 items={this.state.todoItems}
                                 removeItem={this.removeItem}

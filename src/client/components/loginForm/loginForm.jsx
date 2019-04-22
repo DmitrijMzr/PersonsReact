@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {InputForm, verify} from './logicForLogin';
+import MsgContext from "../MsgContext";
 
 class LoginForm extends Component {
     state = {
@@ -16,8 +17,15 @@ class LoginForm extends Component {
         }
     }
     
-    logging = () => {
-        verify(this.state.inputLogin, this.state.inputPassword);
+    logging = event => {
+        verify(this.state.inputLogin, this.state.inputPassword)
+            .then(data => {
+                this.props.login(data);
+            })
+            .catch(error => {
+                this.context.renderMsg(error);
+            });
+        event.preventDefault();
     }
 
     render() {
@@ -60,5 +68,6 @@ class LoginForm extends Component {
             </div>
         );
     }
+    static contextType = MsgContext;
 }
 export default LoginForm;
