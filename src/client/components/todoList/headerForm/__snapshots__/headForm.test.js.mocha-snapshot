@@ -1,0 +1,466 @@
+exports["component snapshot/should render correctly(0)"] = {
+  "node": {
+    "nodeType": "host",
+    "type": "div",
+    "props": {
+      "className": "container-input__app-logo",
+      "children": {
+        "type": "h1",
+        "props": {
+          "children": [
+            {
+              "type": "span",
+              "props": {
+                "children": "T"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "o"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "D"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "o"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "L"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "i"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "s"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "t"
+              },
+              "_store": {}
+            }
+          ]
+        },
+        "_store": {}
+      }
+    },
+    "rendered": {
+      "nodeType": "host",
+      "type": "h1",
+      "props": {
+        "children": [
+          {
+            "type": "span",
+            "props": {
+              "children": "T"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "D"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "L"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "i"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "s"
+            },
+            "_store": {}
+          },
+          {
+            "type": "span",
+            "props": {
+              "children": "t"
+            },
+            "_store": {}
+          }
+        ]
+      },
+      "rendered": [
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "T"
+          },
+          "rendered": "T"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "o"
+          },
+          "rendered": "o"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "D"
+          },
+          "rendered": "D"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "o"
+          },
+          "rendered": "o"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "L"
+          },
+          "rendered": "L"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "i"
+          },
+          "rendered": "i"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "s"
+          },
+          "rendered": "s"
+        },
+        {
+          "nodeType": "host",
+          "type": "span",
+          "props": {
+            "children": "t"
+          },
+          "rendered": "t"
+        }
+      ]
+    }
+  },
+  "type": "div",
+  "props": {
+    "className": "container-input__app-logo"
+  },
+  "children": [
+    {
+      "node": {
+        "nodeType": "host",
+        "type": "h1",
+        "props": {
+          "children": [
+            {
+              "type": "span",
+              "props": {
+                "children": "T"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "o"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "D"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "o"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "L"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "i"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "s"
+              },
+              "_store": {}
+            },
+            {
+              "type": "span",
+              "props": {
+                "children": "t"
+              },
+              "_store": {}
+            }
+          ]
+        },
+        "rendered": [
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "T"
+            },
+            "rendered": "T"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "rendered": "o"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "D"
+            },
+            "rendered": "D"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "rendered": "o"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "L"
+            },
+            "rendered": "L"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "i"
+            },
+            "rendered": "i"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "s"
+            },
+            "rendered": "s"
+          },
+          {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "t"
+            },
+            "rendered": "t"
+          }
+        ]
+      },
+      "type": "h1",
+      "props": {},
+      "children": [
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "T"
+            },
+            "rendered": "T"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "T"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "rendered": "o"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "o"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "D"
+            },
+            "rendered": "D"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "D"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "o"
+            },
+            "rendered": "o"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "o"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "L"
+            },
+            "rendered": "L"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "L"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "i"
+            },
+            "rendered": "i"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "i"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "s"
+            },
+            "rendered": "s"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "s"
+          ]
+        },
+        {
+          "node": {
+            "nodeType": "host",
+            "type": "span",
+            "props": {
+              "children": "t"
+            },
+            "rendered": "t"
+          },
+          "type": "span",
+          "props": {},
+          "children": [
+            "t"
+          ]
+        }
+      ]
+    }
+  ]
+};
+

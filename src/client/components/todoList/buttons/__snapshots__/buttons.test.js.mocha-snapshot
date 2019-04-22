@@ -1,0 +1,102 @@
+exports["Buttons component/should render correctly(0)"] = {
+  "node": {
+    "nodeType": "function",
+    "props": {
+      "children": [
+        {
+          "type": "button",
+          "props": {
+            "type": "button",
+            "className": "todo-list__item-bttn_bttn-edit",
+            "onClick": "editCallback",
+            "children": "Edit"
+          },
+          "_store": {}
+        },
+        {
+          "type": "button",
+          "props": {
+            "type": "button",
+            "className": "todo-list__item-bttn_bttn-del",
+            "onClick": "closeCallback",
+            "children": "×"
+          },
+          "_store": {}
+        }
+      ]
+    },
+    "rendered": [
+      {
+        "nodeType": "host",
+        "type": "button",
+        "props": {
+          "type": "button",
+          "className": "todo-list__item-bttn_bttn-edit",
+          "onClick": "editCallback",
+          "children": "Edit"
+        },
+        "rendered": "Edit"
+      },
+      {
+        "nodeType": "host",
+        "type": "button",
+        "props": {
+          "type": "button",
+          "className": "todo-list__item-bttn_bttn-del",
+          "onClick": "closeCallback",
+          "children": "×"
+        },
+        "rendered": "×"
+      }
+    ]
+  },
+  "type": "Fragment",
+  "props": {},
+  "children": [
+    {
+      "node": {
+        "nodeType": "host",
+        "type": "button",
+        "props": {
+          "type": "button",
+          "className": "todo-list__item-bttn_bttn-edit",
+          "onClick": "editCallback",
+          "children": "Edit"
+        },
+        "rendered": "Edit"
+      },
+      "type": "button",
+      "props": {
+        "type": "button",
+        "className": "todo-list__item-bttn_bttn-edit",
+        "onClick": "editCallback"
+      },
+      "children": [
+        "Edit"
+      ]
+    },
+    {
+      "node": {
+        "nodeType": "host",
+        "type": "button",
+        "props": {
+          "type": "button",
+          "className": "todo-list__item-bttn_bttn-del",
+          "onClick": "closeCallback",
+          "children": "×"
+        },
+        "rendered": "×"
+      },
+      "type": "button",
+      "props": {
+        "type": "button",
+        "className": "todo-list__item-bttn_bttn-del",
+        "onClick": "closeCallback"
+      },
+      "children": [
+        "×"
+      ]
+    }
+  ]
+};
+

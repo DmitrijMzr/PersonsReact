@@ -7,13 +7,17 @@ import Buttons from "./buttons/buttons";
 import LoginForm from "./loginForm/loginForm";
 import RegistrationForm from "./registrationForm/registrationForm";
 import {requestServerToPerson, requestServerToData} from './logic';
+import InputsHeader from "./todoList/headerForm/formToDo";
 import Loading from "./loading/loading";
+import {ToDoList} from "./todoList/body/listToDo";
 
 class App extends Component {
     state = {
         page: 'pending',
         userName: null,
         arrData: [],
+        todoItems: this.props.initItems,
+        isHidden: false,
         inputs: {
             id: '',
             fname: '',
@@ -22,6 +26,7 @@ class App extends Component {
         },
         buttonName: 'TodoList'
     };
+    lastIndex = 3;
 
     componentDidMount() {
         requestServerToPerson()
@@ -89,6 +94,51 @@ class App extends Component {
         });
     }
 
+    addItem = (todoItem) => {
+        const arr = this.state.todoItems;
+        arr.unshift({
+            index: this.lastIndex,
+            value: todoItem,
+            done: false
+        });
+        this.setState(() => ({todoItems: arr}));
+    }
+
+    removeItem = (itemIndex) => {
+        const arr = this.state.todoItems;
+        arr.splice(itemIndex, 1);
+        this.setState(() => ({todoItems: arr}));
+    }
+
+    saveItem = (itemIndex, value) => {
+        this.setState(state => {
+            const item = this.state.todoItems[itemIndex];
+            item.value = value;
+            return {todoItems: state.todoItems};
+        });
+    }
+
+    markTodoDone = (itemIndex) => {
+        const arr = this.state.todoItems;
+        const todo = this.state.todoItems[itemIndex];
+        arr.splice(itemIndex, 1);
+        todo.done = !todo.done;
+        todo.done ? arr.push(todo) : arr.unshift(todo);
+        this.setState(() => ({todoItems: arr}));
+    }
+
+    hideDoneItem = () =>{
+        this.setState(() => ({isHidden: !this.state.isHidden}))
+    }
+
+    checkedHide = (item, mode) => {
+        let check = true;
+        if(item.done === true && mode) {
+            check = false;
+        }
+        return check
+    }
+
     logout = () =>{
         this.setState(state => {
             return {page: 'login'};
@@ -136,8 +186,23 @@ class App extends Component {
         if (page === 'todoList') {
             return (
                 <Fragment>
-                <div>todo List!!!</div>
-                <button onClick={this.toggleButton}>{this.state.buttonName}</button>
+                    <div className={'app'}>
+                        <div className="app__todo">
+                            <InputsHeader
+                                addItem={this.addItem}
+                                hideDoneItem={this.hideDoneItem}/>
+                            <ToDoList
+                                items={this.state.todoItems}
+                                removeItem={this.removeItem}
+                                markTodoDone={this.markTodoDone}
+                                editItem={this.editItem}
+                                saveItem={this.saveItem}
+                                isHidden={this.state.isHidden}
+                                checkedHide={this.checkedHide}/>
+                            <button onClick={this.toggleButton}>{this.state.buttonName}</button>
+
+                        </div>
+                    </div>
                 </Fragment>
         );
         }
