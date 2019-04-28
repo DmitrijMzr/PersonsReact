@@ -12,6 +12,7 @@ import Loading from "./loading/loading";
 import {ToDoList} from "./todoList/body/listToDo";
 import MsgContext from './MsgContext';
 import MsgBox from './MsgBox.jsx';
+import {logout as sendLogout} from './logic';
 
 class App extends Component {
     state = {
@@ -36,6 +37,24 @@ class App extends Component {
     lastIndex = 3;
     timeoutID = null;
 
+    initPersonsData = () => {
+        requestServerToData()
+            .then(arrData => {
+                this.setState(() => {
+                    return {arrData};
+                });
+            })
+            .catch(error => {
+                let err = '';
+                if (error === undefined) {
+                    err = 'server error';
+                } else {
+                    err = error;
+                }
+                this.renderMsg(err, 'red');
+            });
+    };
+
     componentDidMount() {
         requestServerToPerson()
             .then(data => {
@@ -43,15 +62,7 @@ class App extends Component {
                     this.setState(() => {
                         return {userName: data.userName, page: 'main'};
                     });
-                    requestServerToData()
-                        .then(arrData => {
-                            this.setState(() => {
-                                return {arrData};
-                            });
-                        })
-                        .catch(error => {
-
-                        });
+                    this.initPersonsData();
                 } else {
                     this.setState(() => ({page: 'login'}));
                 }
@@ -62,8 +73,9 @@ class App extends Component {
     }
 
     login = data => {
-        this.setState(() => ({page: 'main', userName: data[0]}));
-    }
+        this.setState(() => ({page: 'main', userName: data}));
+        this.initPersonsData();
+    };
 
     hideMsg = () => {
         this.setState(() => ({msgData: {msgVisibility: 'hidden'}}));
@@ -87,47 +99,62 @@ class App extends Component {
 
     idChange = (e) => {
         const value = e.target.value;
-        this.setState(() => {
-            return {inputs: {id: value}};
+        this.setState(state => {
+            const inputs = Object.assign({}, state.inputs);
+            inputs.id = value;
+            return {inputs};
         });
     }
 
     fnameChange = (e) => {
         const value = e.target.value;
-        this.setState(() => {
-            return {inputs: {fname: value}};
+        this.setState(state => {
+            const inputs = Object.assign({}, state.inputs);
+            inputs.fname = value;
+            return {inputs};
         });
     }
 
     lnameChange = (e) => {
         const value = e.target.value;
-        this.setState(() => {
-            return {inputs: {lname: value}};
+        this.setState(state => {
+            const inputs = Object.assign({}, state.inputs);
+            inputs.lname = value;
+            return {inputs};
         });
     }
 
     ageChange = (e) => {
         const value = e.target.value;
-        this.setState(() => {
-            return {inputs: {age: value}};
+        this.setState(state => {
+            const inputs = Object.assign({}, state.inputs);
+            inputs.age = value;
+            return {inputs};
         });
     }
 
     create = () => {
-        const inputs = Object.assign(this.state.inputs, this.state.inputs);
+        const inputs = {
+            personID: parseInt(this.state.inputs.id),
+            age: parseInt(this.state.inputs.age),
+            firstName: this.state.inputs.fname,
+            lastName: this.state.inputs.lname
+        };
+        console.log(inputs, 'inputs before assign');
         const arrData = this.state.arrData;
+        console.log(arrData);
         const promise = addPersonDataDB(inputs, arrData);
         if (promise instanceof Promise) {
             promise
                 .then(res => {
                     this.setState(() => {
                         arrData.push(inputs);
-                        this.renderMsg('Data add', 'green');
+                        this.renderMsg('Data added', 'green');
                         return {arrData};
                     });
                 })
                 .catch(res => {
-                    this.renderMsg('server is unavailable', 'red');
+                    this.renderMsg(res === undefined ? 'server is unavailable' : res, 'red');
                 });
         } else {
             this.renderMsg(...promise);
@@ -191,9 +218,20 @@ class App extends Component {
     }
 
     logout = () =>{
-        this.setState(state => {
-            return {page: 'login'};
-        });
+        sendLogout()
+            .then(() => {
+                console.log('logging out success');
+                this.setState(() => {
+                    return {userName: '', page: 'login'};
+                });
+            })
+            .catch(err => {
+                if (err === undefined) {
+                    this.renderMsg('cannot logout due to a server error', 'red');
+                } else {
+                    this.renderMsg(err, 'red');
+                }
+            });
     }
 
     render() {
@@ -218,6 +256,7 @@ class App extends Component {
         if (page === 'main') {
             return (
                 <React.Fragment>
+                    <button className={'login-form_button'} onClick={this.toggleButton}>{this.state.buttonName}</button>
                     <Header userName={userName} logout={this.logout}/>
                     <div className='main'>
                         <CreatePersons
@@ -235,7 +274,6 @@ class App extends Component {
                             <DataTable arrData = {arrData} />
                         </MsgContext.Provider>
                         <Buttons create = {this.create}/>
-                        <button onClick={this.toggleButton}>{this.state.buttonName}</button>
                     </div>
                 </React.Fragment>
             );
@@ -245,6 +283,7 @@ class App extends Component {
             return (
                 <Fragment>
                     <div className={'app'}>
+                        <button className={'todo-list_button'} onClick={this.toggleButton}>{this.state.buttonName}</button>
                         <div className="app__todo">
                             <InputsHeader
                                 addItem={this.addItem}
@@ -257,7 +296,6 @@ class App extends Component {
                                 saveItem={this.saveItem}
                                 isHidden={this.state.isHidden}
                                 checkedHide={this.checkedHide}/>
-                            <button onClick={this.toggleButton}>{this.state.buttonName}</button>
 
                         </div>
                     </div>

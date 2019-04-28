@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {InputForm, verify} from './logicForLogin';
+import {InputForm, verify, verifyRegister} from './logicForLogin';
 import MsgContext from "../MsgContext";
 
 class LoginForm extends Component {
@@ -18,7 +18,22 @@ class LoginForm extends Component {
     }
     
     logging = event => {
-        verify(this.state.inputLogin, this.state.inputPassword)
+        const login = this.state.inputLogin;
+        const pass = this.state.inputPassword;
+        verify(login, pass)
+            .then(() => {
+                this.props.login(login);
+            })
+            .catch(error => {
+                this.context.renderMsg(error);
+            });
+        event.preventDefault();
+    }
+
+    register = event => {
+        const login = this.state.inputLogin;
+        const pass = this.state.inputPassword;
+        verifyRegister(login, pass)
             .then(data => {
                 this.props.login(data);
             })
@@ -26,7 +41,7 @@ class LoginForm extends Component {
                 this.context.renderMsg(error);
             });
         event.preventDefault();
-    }
+    };
 
     render() {
         return (
@@ -42,6 +57,7 @@ class LoginForm extends Component {
                            required
                            placeholder='Username'
                            onChange={this.onChange}
+                           autoFocus="autofocus"
                     />
                     <input name='inputPassword'
                            id="password"
@@ -58,11 +74,13 @@ class LoginForm extends Component {
                         Sing in
                     </button>
                     <button id="registration"
-                            className="bttn">
+                            className="bttn"
+                            onClick = {this.register}>
                         Registration
                     </button>
                     <input id="response"
                            type="text"
+                           autoComplete="off"
                     />
                 </form>
             </div>

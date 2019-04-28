@@ -1,6 +1,10 @@
 body {
   margin: 0;
   padding: 0;
+  background: url("http://designshack.net/wp-content/uploads/svg-background.jpg");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
 
 .app {
@@ -8,7 +12,6 @@ body {
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background: rgba(214, 250, 255, 0.75);
   .app__todo {
     flex-basis: 50%;
     height: 100%;
@@ -25,7 +28,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #262626;
+  background: lightgreen;
   box-sizing: border-box;
   box-shadow: 0 10px 15px rgba(0,0,0,.5);
 
@@ -179,7 +182,7 @@ body {
     label {
       font-size: 1.7em;
       margin-right: 2vh;
-      color: #ffffff;
+      color: #000000;
     }
   }
 }
@@ -187,7 +190,7 @@ body {
 
 
 .todo-list {
-  background: #262626 ;
+  background: lightgreen ;
   flex: none;
   height: 70vh;
   flex: 1 0 auto;
@@ -247,7 +250,7 @@ body {
   }
 
   .todo-list__item-bttn > button{
-    background: #262626;
+    background: lightgreen;
     outline: none;
     border: none;
     width: 50px;
@@ -258,7 +261,7 @@ body {
   }
 
   .todo-list__item-bttn > button:hover{
-    background: #585858;
+    background: lawngreen;
 
   }
 
@@ -266,7 +269,25 @@ body {
     background-color: rgb(216, 224, 217);
   }
 }
+.todo-list_button{
+  top: 10px;
+  left: 15px;
+  position: absolute;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  background-color: green;
+  outline: 0;
+  border: 1px solid #F2F2F2;
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
 
+}
+.todo-list_button:hover{
+  background: greenyellow;
+  cursor: pointer;
+}
 ::-webkit-scrollbar{
   border-color: rgba(255, 237, 203, 0.56);
   width: 14px;
