@@ -1,7 +1,20 @@
 
-export const setPage = (page) => {
+export const types = Object.freeze({
+    SET_PAGE: 'SET_PAGE',
+    SET_USERNAME: 'SET_USERNAME'
+});
+const setPage = (page) => {
     return {
-        type: 'SET_PAGE',
+        type: types.SET_PAGE,
         payload: page
     };
 };
+
+const setUserName = (userName) => {
+    return {
+        type: types.SET_USERNAME,
+        payload: userName
+    };
+};
+
+export {setPage, setUserName};

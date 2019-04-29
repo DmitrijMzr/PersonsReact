@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from "react";
-import { connect } from 'react-redux';
-import * as actions from '../actions';
+import {connect} from 'react-redux';
+import {setPage, setUserName} from '../actions';
 
 import Header from './persons/header/header';
 import CreatePersons from "./persons/createPersons/createPersons";
@@ -18,8 +18,6 @@ import {logout as sendLogout} from './logic';
 
 class App extends Component {
     state = {
-        page: 'pending',
-        userName: null,
         arrData: [],
         msgData: {
             msgText: '',
@@ -60,23 +58,28 @@ class App extends Component {
     componentDidMount() {
         requestServerToPerson()
             .then(data => {
+                console.log(this.props, 'props');
                 if (data.authorized) {
                     this.props.setPage('main');
-                    this.setState(() => {
-                        return {userName: data.userName};
-                    });
+                    this.props.setUserName(data.userName);
                     this.initPersonsData();
                 } else {
-                    this.setState(() => ({page: 'login'}));
+                    this.props.setPage('login');
+                    //this.setState(() => ({page: 'login'}));
                 }
             })
-            .catch(() => {
-                console.log('sever not found');
+            .catch((err) => {
+                if (err === 'request_error') {
+                    this.renderMsg('server error', 'red');
+                } else {
+                    throw err;
+                }
             });
     }
 
     login = data => {
-        this.setState(() => ({page: 'main', userName: data}));
+        this.props.setPage('main');
+        this.props.setUserName(data);
         this.initPersonsData();
     };
 
@@ -152,7 +155,6 @@ class App extends Component {
                 .then(res => {
                     this.setState(() => {
                         arrData.push(inputs);
-                        this.renderMsg('Data added', 'green');
                         return {arrData};
                     });
                 })
@@ -206,14 +208,14 @@ class App extends Component {
     };
 
     toggleButton = () =>{
-        this.setState((state) =>{
-            if (state.page === 'main'){
-                return {page: 'todoList', buttonName: 'Persons'};
-            }
-            if(state.page === 'todoList'){
-                return {page: 'main', buttonName: 'TodoList'};
-            }
-        });
+        if (this.props.page === 'main'){
+            this.props.setPage('todoList');
+            this.setState(state => ({buttonName: 'Persons'}));
+        } else if (this.props.page === 'todoList'){
+            this.props.setPage('main');
+            this.setState(state => ({buttonName: 'TodoList'}));
+        }
+
     };
 
     addItem = (todoItem) => {
@@ -266,10 +268,7 @@ class App extends Component {
             .then(() => {
                 console.log('logging out success');
                 this.props.setPage('login');
-                this.setState(() => {
-                    //return {userName: '', page: 'login'};
-                    return {userName: ''};
-                });
+                this.props.setUserName('');
             })
             .catch(err => {
                 if (err === undefined) {
@@ -304,7 +303,7 @@ class App extends Component {
             return (
                 <React.Fragment>
                     <button className={'login-form_button'} onClick={this.toggleButton}>{this.state.buttonName}</button>
-                    <Header userName={userName} logout={this.logout}/>
+                    <Header logout={this.logout}/>
                     <div className='main'>
                         <CreatePersons
                             idChange = {this.idChange}
@@ -354,8 +353,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        page: state
+        page: state.page
     };
 };
 
-export default connect(mapStateToProps, actions)(App);
+export default connect(mapStateToProps, {setPage, setUserName})(App);

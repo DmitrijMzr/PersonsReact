@@ -22,7 +22,8 @@ function requestServerToPerson () {
                         //userName.innerHTML = `Guest account!`;
                     }
                 } else {
-                    reject();
+                    console.log('rejecting');
+                    reject('request_error');
                 }
             }
         }

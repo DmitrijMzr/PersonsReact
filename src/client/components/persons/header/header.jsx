@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {setPage, setUserName} from "../../../actions";
 
 function Header(props) {
     const userName = props.userName;
@@ -12,4 +14,10 @@ function Header(props) {
     );
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        userName: state.userName
+    };
+};
+
+export default connect(mapStateToProps)(Header);
