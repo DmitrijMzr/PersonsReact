@@ -15,9 +15,9 @@ app.use(express.static('dist'));
 function getConnection(){
         return mysql.createConnection({
             host: "localhost",
-            user: "persons_todo",
-            password: "1111",
-            database: "person"
+            user: "root",
+            password: "",
+            database: "person2"
         });
 }
 
