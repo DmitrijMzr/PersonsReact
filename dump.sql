@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `person` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `person`;
+CREATE DATABASE  IF NOT EXISTS `person2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `person2`;
 -- MySQL dump 10.13  Distrib 8.0.11, for Win64 (x86_64)
 --
 -- Host: localhost    Database: person

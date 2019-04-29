@@ -1,4 +1,6 @@
 import React, {Component, Fragment} from "react";
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 import Header from './persons/header/header';
 import CreatePersons from "./persons/createPersons/createPersons";
@@ -59,8 +61,9 @@ class App extends Component {
         requestServerToPerson()
             .then(data => {
                 if (data.authorized) {
+                    this.props.setPage('main');
                     this.setState(() => {
-                        return {userName: data.userName, page: 'main'};
+                        return {userName: data.userName};
                     });
                     this.initPersonsData();
                 } else {
@@ -262,8 +265,10 @@ class App extends Component {
         sendLogout()
             .then(() => {
                 console.log('logging out success');
+                this.props.setPage('login');
                 this.setState(() => {
-                    return {userName: '', page: 'login'};
+                    //return {userName: '', page: 'login'};
+                    return {userName: ''};
                 });
             })
             .catch(err => {
@@ -276,8 +281,9 @@ class App extends Component {
     };
 
     render() {
-        const {page, userName, arrData} = this.state;
+        const {userName, arrData} = this.state;
         const {id, fname, lname, age} = this.state.inputs;
+        const page = this.props.page;
         if (page === 'pending') {
             return <Loading />;
         }
@@ -346,4 +352,10 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        page: state
+    };
+};
+
+export default connect(mapStateToProps, actions)(App);
