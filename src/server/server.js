@@ -1,15 +1,10 @@
 const express = require('express');
-const {
-    createTableLogin,
-    createTablePerson
-} = require('./helpers');
 const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
 let checkUserFlag = false;
 let currentUserName = null;
-let currentResponse;
 let currentID = null;
 app.use(bodyParser.json());
 app.use(cors());
@@ -32,7 +27,6 @@ app.get('/currentUser', (req, res) => {
 });
 
 app.post('/login', function (req, res) {
-    //createTableLogin();
     const errorMsg = {};
     checkUserInDataBase(req.body.login, req.body.password, errorMsg)
         .then(() => {
@@ -79,21 +73,43 @@ function checkUserInDataBase (login, password) {
 
 }
 
-app.post('/register', function (req, res) {
-    checkUserInDataBase(req);
-    if(checkUserFlag===false) {
-        createTablePerson();
-        saveDataPersonInLoginTable(req);
-        setTimeout(responseSend, 500);
-    } else {
-        res.send('user is already added');
-    }
-    function responseSend() {
-        getIdUser(req);
-        currentUserName = req.body.login;
+app.post('/register', async (req, res) => {
+    try {
+        const data = await saveDataPersonInLoginTable(req);
+        currentUserName = data.login;
+        currentID = data.id;
         res.send('OK');
+    } catch (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+            res.send('user is already added');
+        } else {
+            res.send(err.sqlMessage);
+        }
     }
 });
+
+function  saveDataPersonInLoginTable(req) {
+    return new Promise((resolve, reject) => {
+        const {login, password, mail} = req.body;
+        const connectionDB = getConnection();
+
+        connectionDB.connect(function (err) {
+            if (err) {
+                return reject(err);
+            }
+            console.log("Connected!");
+            const sql = `INSERT INTO tblogin (login, password, mail) VALUES (?, ?, '')`;
+            const values = [login, password];
+            connectionDB.query(sql, values, function (err, result) {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("Saved data login");
+                resolve({login, id: result.insertId});
+            });
+        });
+    });
+}
 
 app.get('/clearCurName', (req, res) => {
     currentUserName = null;
@@ -135,30 +151,6 @@ app.post('/createData', async function (req, res) {
     }
 });
 
-app.post('/deleteRow', (req, res) => {
-    deleteRowPerson(req);
-    res.end();
-});
-
-app.post('/updateRow', (req, res) => {
-    updateRowPerson(req);
-    res.end();
-});
-
-function  saveDataPersonInLoginTable(req) {
-    const connectionDB = getConnection();
-
-    connectionDB.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
-        const sql = `INSERT INTO tblogin (login, password, mail) VALUES ("${req.body.login}", "${req.body.password}", "${req.body.mail}")`;
-        connectionDB.query(sql, function (err, result) {
-            if (err) throw err;
-            console.log("Saved data login");
-        });
-    });
-}
-
 function  saveDataPersonInPersonTable(req) {
     return new Promise((resolve, reject) => {
         const connectionDB = getConnection();
@@ -173,10 +165,10 @@ function  saveDataPersonInPersonTable(req) {
             connectionDB.query(sql, values, function (err, result) {
                 let res = '';
                 if (err) {
-                    if (err === 'ER_DUP_ENTRY'){
+                    if (err.code === 'ER_DUP_ENTRY'){
                         res = 'dup';
                     } else {
-                        res = err;
+                        res = err.sqlMessage;
                     }
                     reject(res);
                     console.log(err, 'error saving data');
@@ -190,6 +182,43 @@ function  saveDataPersonInPersonTable(req) {
     });
 
 }
+
+app.post('/deleteRow', async (req, res) => {
+    try{
+        const data = await deleteRowPerson(req);
+        res.end('OK');
+    } catch (err) {
+        res.send('err');
+    }
+});
+
+function deleteRowPerson(req) {
+    console.log(req.body, 'body before deleterowpers');
+    return new Promise((resolve, reject) => {
+        const connectionDB = getConnection();
+        connectionDB.connect(function (err) {
+            if (err) {
+                return reject(err);
+            }
+            console.log("Connected!");
+            const values = [req.body.id, currentID];
+            console.log(values, 'deleting values');
+            connectionDB.query(`DELETE FROM tbperson WHERE personID = ? AND loginID = ?`, values, function (err, result) {
+                console.log(err, 'deleting errors');
+                if (err) {
+                    return reject(err.sqlMessage);
+                }
+                resolve();
+                console.log(result);
+            });
+        });
+    });
+}
+
+app.post('/updateRow', (req, res) => {
+    updateRowPerson(req);
+    res.end();
+});
 
 function updateRowPerson(req) {
     const connectionDB3 = getConnection();
@@ -218,19 +247,6 @@ function updateRowPerson(req) {
         console.log("Connected!");
         connectionDB5.query(`UPDATE tbperson SET age = "${req.body.age}" WHERE personID = "${req.body.id}" AND loginID = "${currentID[0].id}"`, function (err, result, fields) {
             if (err) throw err;
-            console.log(result);
-        });
-    });
-}
-
-function deleteRowPerson(req) {
-    const connectionDB = getConnection();
-    connectionDB.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
-        connectionDB.query(`DELETE FROM tbperson WHERE personID = "${req.body.id}" AND loginID = "${currentID[0].id}"`, function (err, result, fields) {
-            if (err) throw err;
-            currentResponse = result;
             console.log(result);
         });
     });

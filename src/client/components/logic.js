@@ -87,8 +87,6 @@ function requestServerToData () {
 }
 
 function checkID (id, arrData) {
-    //debugger;
-    return true;
     console.log(id, arrData);
     for (let i = 0; i < arrData.length; i++) {
         if (arrData[i].personID === id) {
@@ -100,12 +98,12 @@ function checkID (id, arrData) {
 
 function addPersonDataDB (inputs, arrData) {
     if (Object.values(inputs).some(val => val === '')) {
-            return renderMsg('Fill in all the fields', 'red');
+            return ['Fill in all the fields', 'red'];
     } else {
         if(checkID(inputs.personID, arrData)) {
             const request = new XMLHttpRequest();
             request.open("POST", "http://localhost:4000/createData", true);
-            console.log('im here')
+            console.log('im here');
             request.setRequestHeader("Content-Type", "application/json");
             console.log(inputs, 'inputs before send');
             const data = JSON.stringify(inputs);
@@ -127,7 +125,7 @@ function addPersonDataDB (inputs, arrData) {
             });
 
         } else {
-            return ['User with input ID already added', 'red'];
+            return ['User with input ID is already added', 'red'];
         }
     }
 }

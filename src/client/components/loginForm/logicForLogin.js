@@ -46,12 +46,11 @@ function verifyRegister(login, pass) {
         request.onreadystatechange = function () {
             if (request.readyState === 4) {
                 if (request.status == 200 && request.status < 300) {
-                    if (request.responseText === 'user is already added') {
+                    if (request.responseText === 'OK') {
+                        resolve();
+                    } else {
                         inputResponse.value = request.responseText;
                         reject(request.responseText);
-                    } else {
-                        resolve(request.responseText);
-                        //window.location.replace("http://localhost:4000/index.html");
                     }
                 } else {
                     inputResponse.value = 'exclusively bad request';

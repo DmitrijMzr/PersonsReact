@@ -25,7 +25,7 @@ class LoginForm extends Component {
                 this.props.login(login);
             })
             .catch(error => {
-                this.context.renderMsg(error);
+                this.context.renderMsg(error === 'dup' ? 'id duplication is forbidden here' : error);
             });
         event.preventDefault();
     }
@@ -34,8 +34,8 @@ class LoginForm extends Component {
         const login = this.state.inputLogin;
         const pass = this.state.inputPassword;
         verifyRegister(login, pass)
-            .then(data => {
-                this.props.login(data);
+            .then(() => {
+                this.props.login(login);
             })
             .catch(error => {
                 this.context.renderMsg(error);

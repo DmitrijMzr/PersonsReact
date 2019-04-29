@@ -79,7 +79,7 @@ class App extends Component {
 
     hideMsg = () => {
         this.setState(() => ({msgData: {msgVisibility: 'hidden'}}));
-    }
+    };
 
     renderMsg = (msg, color) => {
         this.setState(state => {
@@ -95,16 +95,16 @@ class App extends Component {
                 }
             };
         });
-    }
+    };
 
     idChange = (e) => {
         const value = e.target.value;
         this.setState(state => {
             const inputs = Object.assign({}, state.inputs);
-            inputs.id = value;
+            inputs.id = parseInt(value);
             return {inputs};
         });
-    }
+    };
 
     fnameChange = (e) => {
         const value = e.target.value;
@@ -113,7 +113,7 @@ class App extends Component {
             inputs.fname = value;
             return {inputs};
         });
-    }
+    };
 
     lnameChange = (e) => {
         const value = e.target.value;
@@ -122,7 +122,7 @@ class App extends Component {
             inputs.lname = value;
             return {inputs};
         });
-    }
+    };
 
     ageChange = (e) => {
         const value = e.target.value;
@@ -131,12 +131,12 @@ class App extends Component {
             inputs.age = value;
             return {inputs};
         });
-    }
+    };
 
     create = () => {
         const inputs = {
-            personID: parseInt(this.state.inputs.id),
-            age: parseInt(this.state.inputs.age),
+            personID: this.state.inputs.id,
+            age: this.state.inputs.age,
             firstName: this.state.inputs.fname,
             lastName: this.state.inputs.lname
         };
@@ -154,12 +154,53 @@ class App extends Component {
                     });
                 })
                 .catch(res => {
-                    this.renderMsg(res === undefined ? 'server is unavailable' : res, 'red');
+                    let message;
+                    switch(res){
+                        case undefined:
+                            message = 'server is unavailable';
+                            break;
+                        case 'dup':
+                            message = 'id duplication is disallowed here';
+                            break;
+                        default:
+                            message = res;
+                    }
+                    this.renderMsg(message, 'red');
                 });
         } else {
             this.renderMsg(...promise);
         }
-    }
+    };
+
+    deletePerson = async () => {
+        const id = this.state.inputs.id;
+        try {
+            const options = {
+                method: 'POST',
+                body: JSON.stringify({id}),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            };
+            const response = await fetch("http://localhost:4000/deleteRow", options);
+            if (response.status !== 200) {
+                throw 'response error';
+            }
+            const message = await response.text();
+            if (message === 'OK') {
+                this.setState(state => {
+                    const arrData =  state.arrData.filter(item => item.personID !== id);
+                    //debugger;
+                    return {arrData};
+                });
+            } else {
+                throw 'message';
+            }
+        } catch (err) {
+            this.renderMsg(err, 'red');
+        }
+    };
 
     toggleButton = () =>{
         this.setState((state) =>{
@@ -170,7 +211,7 @@ class App extends Component {
                 return {page: 'main', buttonName: 'TodoList'};
             }
         });
-    }
+    };
 
     addItem = (todoItem) => {
         const arr = this.state.todoItems;
@@ -180,13 +221,13 @@ class App extends Component {
             done: false
         });
         this.setState(() => ({todoItems: arr}));
-    }
+    };
 
     removeItem = (itemIndex) => {
         const arr = this.state.todoItems;
         arr.splice(itemIndex, 1);
         this.setState(() => ({todoItems: arr}));
-    }
+    };
 
     saveItem = (itemIndex, value) => {
         this.setState(state => {
@@ -194,7 +235,7 @@ class App extends Component {
             item.value = value;
             return {todoItems: state.todoItems};
         });
-    }
+    };
 
     markTodoDone = (itemIndex) => {
         const arr = this.state.todoItems;
@@ -203,11 +244,11 @@ class App extends Component {
         todo.done = !todo.done;
         todo.done ? arr.push(todo) : arr.unshift(todo);
         this.setState(() => ({todoItems: arr}));
-    }
+    };
 
     hideDoneItem = () =>{
         this.setState(() => ({isHidden: !this.state.isHidden}))
-    }
+    };
 
     checkedHide = (item, mode) => {
         let check = true;
@@ -215,7 +256,7 @@ class App extends Component {
             check = false;
         }
         return check
-    }
+    };
 
     logout = () =>{
         sendLogout()
@@ -232,7 +273,7 @@ class App extends Component {
                     this.renderMsg(err, 'red');
                 }
             });
-    }
+    };
 
     render() {
         const {page, userName, arrData} = this.state;
@@ -273,7 +314,7 @@ class App extends Component {
                             <MsgBox/>
                             <DataTable arrData = {arrData} />
                         </MsgContext.Provider>
-                        <Buttons create = {this.create}/>
+                        <Buttons create = {this.create} deletePerson = {this.deletePerson}/>
                     </div>
                 </React.Fragment>
             );
