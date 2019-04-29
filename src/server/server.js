@@ -9,16 +9,12 @@ let currentID = null;
 app.use(bodyParser.json());
 app.use(cors());
 app.options('*', cors());
+const dbConnectionConfig = require('./db-connection-config.js');
 
 app.use(express.static('dist'));
 
 function getConnection(){
-        return mysql.createConnection({
-            host: "localhost",
-            user: "persons_todo",
-            password: "1111",
-            database: "person"
-        });
+        return mysql.createConnection(dbConnectionConfig);
 }
 
 
