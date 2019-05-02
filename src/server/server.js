@@ -23,8 +23,7 @@ app.get('/currentUser', (req, res) => {
 });
 
 app.post('/login', function (req, res) {
-    const errorMsg = {};
-    checkUserInDataBase(req.body.login, req.body.password, errorMsg)
+    checkUserInDataBase(req.body.login, req.body.password)
         .then(() => {
             if (checkUserFlag) {
                 currentUserName = req.body.login;
