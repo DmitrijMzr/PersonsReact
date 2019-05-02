@@ -8,7 +8,7 @@ function Header(props) {
     return(
         <div className='header'>
             <h1>CRUD node.js</h1>
-            <h2 id='userName'>Hello, {userName}!</h2>
+            <h2>Hello, {userName}!</h2>
             <button id='logout' className='data__button' onClick={logout}>Logout</button>
         </div>
     );

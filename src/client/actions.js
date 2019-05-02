@@ -1,7 +1,8 @@
 
 export const types = Object.freeze({
     SET_PAGE: 'SET_PAGE',
-    SET_USERNAME: 'SET_USERNAME'
+    SET_USERNAME: 'SET_USERNAME',
+    INIT: 'INIT'
 });
 const setPage = (page) => {
     return {

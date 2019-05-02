@@ -56,6 +56,7 @@ class App extends Component {
     };
 
     componentDidMount() {
+        return;
         requestServerToPerson()
             .then(data => {
                 console.log(this.props, 'props');
