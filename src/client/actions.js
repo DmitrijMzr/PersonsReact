@@ -18,4 +18,11 @@ const setUserName = (userName) => {
     };
 };
 
-export {setPage, setUserName};
+const init = (data) => {
+    return {
+        type: types.INIT,
+        payload: data
+    };
+};
+
+export {setPage, setUserName, init};

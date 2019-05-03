@@ -11,7 +11,7 @@ function* init(action) {
         if (data.authorized) {
             yield put({type: types.SET_PAGE, payload: 'main'});
             yield put({type: types.SET_USERNAME, payload: data.userName});
-            //yield _this.initPersonsData();
+            yield _this.initPersonsData();
         } else {
             yield put({type: types.SET_PAGE, payload: 'login'});
         }

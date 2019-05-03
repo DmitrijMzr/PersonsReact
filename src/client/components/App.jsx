@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
-import {setPage, setUserName} from '../actions';
+import {setPage, setUserName, init} from '../actions';
 
 import Header from './persons/header/header';
 import CreatePersons from "./persons/createPersons/createPersons";
@@ -56,6 +56,7 @@ class App extends Component {
     };
 
     componentDidMount() {
+        this.props.init(this);
         return;
         requestServerToPerson()
             .then(data => {
@@ -358,4 +359,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {setPage, setUserName})(App);
+export default connect(mapStateToProps, {setPage, setUserName, init})(App);

@@ -16,7 +16,6 @@ import './style/App.less';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(watchInit);
-store.dispatch({type: "INIT"});
 
 ReactDOM.render(
     <Provider store={store}>
