@@ -13,8 +13,8 @@ const dbConnectionConfig = require('./db-connection-config.js');
 
 app.use(express.static('dist'));
 
-function getConnection(){
-        return mysql.createConnection(dbConnectionConfig);
+function getConnection() {
+    return mysql.createConnection(dbConnectionConfig);
 }
 
 
@@ -42,10 +42,14 @@ function checkUserInDataBase (login, password) {
     return new Promise((resolve, reject) => {
         const connectionDB = getConnection();
         connectionDB.connect(function (err) {
-            if (err) throw err;
+            if (err) {
+                throw err;
+            }
             console.log("Connected!");
             connectionDB.query("SELECT id, password FROM tbLogin where login=?", [login], function (err, result, fields) {
-                if (err) throw err;
+                if (err){
+                    throw err;
+                }
                 console.log(result);
                 console.log(result, 'result');
                 if (!result.length) {
