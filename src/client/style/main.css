@@ -45,11 +45,23 @@ button {
 }
 .main{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+}
+@media (min-width: 730px) {
+    .main {
+        flex-direction: row;
+    }
 }
 .create{
     display: flex;
-    flex-direction: column;
+    margin-right: 10px;
+    /*order: 1;*/
+}
+@media (min-width: 730px) {
+    .create {
+        flex-direction: column;
+        margin-right: 0;
+    }
 }
 .data__input {
     padding: 1em;
@@ -84,7 +96,14 @@ button {
 }
 .columnButton{
     display: flex;
-    flex-direction: column;
+    /*order: 2;*/
+    justify-content: center;
+}
+@media (min-width: 730px) {
+    .columnButton {
+        order: 3;
+        flex-direction: column;
+    }
 }
 .row {
     display: flex;
@@ -108,10 +127,17 @@ button {
 .data__table {
     width: 100%;
     margin-left: 25px;
+    margin-right: 25px;
     padding: 1em;
     background: white;
     border: 1px solid #F2F2F2;
     border-radius: 4px;
+    /*order: 3;*/
+}
+@media (min-width: 730px) {
+    .data__table {
+        margin-right: 0;
+    }
 }
 .data__table-header {
     border: 1px solid #F2F2F2;

@@ -153,6 +153,7 @@ export default class Persons extends Component {
                 <ToggleButton/>
                 <Header/>
                 <div className='main'>
+                    <MsgBox/>
                     <CreatePersons
                         idChange = {this.idChange}
                         fnameChange = {this.fnameChange}
@@ -163,9 +164,8 @@ export default class Persons extends Component {
                         lname = {lname}
                         age = {age}
                     />
-                        <MsgBox/>
-                        <DataTable arrData = {arrData} />
                     <Buttons create = {this.create} deletePerson = {this.deletePerson}/>
+                    <DataTable arrData = {arrData} />
                 </div>
             </React.Fragment>
         );
