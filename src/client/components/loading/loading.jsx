@@ -1,14 +1,10 @@
 import React from 'react';
 
 function Loading() {
+    const spans = Array(6).map(() => <span/>);
     return(
         <div className="loader">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            {spans}
             <h1>Loading</h1>
         </div>
     );

@@ -6,18 +6,18 @@ class LoginForm extends Component {
     state = {
         inputLogin: '',
         inputPassword: ''
-    }
+    };
 
     onChange = (e) => {
         if (e.target.name === 'inputLogin') {
-            this.setState({[e.target.name]: e.target.value})
+            this.setState({inputLogin: e.target.value})
         }
         if (e.target.name === 'inputPassword') {
-            this.setState({[e.target.name]: e.target.value})
+            this.setState({inputPassword: e.target.value})
         }
-    }
+    };
     
-    logging = event => {
+    login = event => {
         const login = this.state.inputLogin;
         const pass = this.state.inputPassword;
         verify(login, pass)
@@ -28,7 +28,7 @@ class LoginForm extends Component {
                 this.context.renderMsg(error === 'dup' ? 'id duplication is forbidden here' : error);
             });
         event.preventDefault();
-    }
+    };
 
     register = event => {
         const login = this.state.inputLogin;
@@ -70,7 +70,7 @@ class LoginForm extends Component {
                     <button
                         type="submit"
                         className="bttn"
-                        onClick={this.logging}>
+                        onClick={this.login}>
                         Sing in
                     </button>
                     <button id="registration"

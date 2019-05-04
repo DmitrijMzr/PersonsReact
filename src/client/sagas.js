@@ -1,7 +1,7 @@
 
 import {takeEvery, put, call} from 'redux-saga/effects';
-import {requestServerToPerson} from "./components/logic";
-import {types} from './actions';
+import {logout as sendLogout, requestServerToPerson} from "./components/logic";
+import types from './action-types';
 
 function* init(action) {
     const _this = action.payload;
@@ -11,7 +11,6 @@ function* init(action) {
         if (data.authorized) {
             yield put({type: types.SET_PAGE, payload: 'main'});
             yield put({type: types.SET_USERNAME, payload: data.userName});
-            yield _this.initPersonsData();
         } else {
             yield put({type: types.SET_PAGE, payload: 'login'});
         }
@@ -27,5 +26,5 @@ function* init(action) {
 }
 
 export function* watchInit() {
-    yield takeEvery('INIT', init);
+    yield takeEvery(types.INIT, init);
 }

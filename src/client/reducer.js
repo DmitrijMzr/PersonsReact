@@ -1,10 +1,23 @@
 
-import {types} from './actions';
+import types from './action-types';
 import {combineReducers} from 'redux';
-const pageSetter = (state = 'pending', action) => {
+
+const commonReducer = (state = {page: 'pending', toggleButtonName: 'TodoList'}, action) => {
+    const newState = Object.assign({}, state);
     switch (action.type) {
         case types.SET_PAGE:
-            return action.payload;
+            newState.page = action.payload;
+            return newState;
+
+        case types.TOGGLE_BUTTON:
+            if (state.page === 'main'){
+                newState.page = 'todoList';
+                newState.toggleButtonName = 'Persons';
+            } else if (state.page === 'todoList'){
+                newState.page = 'main';
+                newState.toggleButtonName = 'TodoList';
+            }
+            return newState;
 
         default:
             return state;
@@ -22,7 +35,7 @@ const userNameSetter = (state = null, action) => {
 };
 
 const reducer = combineReducers({
-    page: pageSetter,
+    common: commonReducer,
     userName: userNameSetter
 });
 

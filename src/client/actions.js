@@ -1,9 +1,6 @@
 
-export const types = Object.freeze({
-    SET_PAGE: 'SET_PAGE',
-    SET_USERNAME: 'SET_USERNAME',
-    INIT: 'INIT'
-});
+import types from './action-types';
+
 const setPage = (page) => {
     return {
         type: types.SET_PAGE,
@@ -25,4 +22,11 @@ const init = (data) => {
     };
 };
 
-export {setPage, setUserName, init};
+const toggleButton = data => {
+    return {
+        type: types.TOGGLE_BUTTON,
+        payload: data
+    };
+};
+
+export {setPage, setUserName, init, toggleButton};

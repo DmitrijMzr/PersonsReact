@@ -1,5 +1,4 @@
 import React from 'react';
-import MsgBox from "../../MsgBox";
 
 function DataTable(props) {
     const arrData = props.arrData;
@@ -14,7 +13,7 @@ function DataTable(props) {
         );
     });
     return(
-        <div id='data__Table' className='data__table'>
+        <div className='data__table'>
             <h2>Data Table</h2>
             <div className='data__table-header'>
                 <div className='row'>

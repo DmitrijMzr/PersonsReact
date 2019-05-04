@@ -2,7 +2,7 @@ import React from 'react';
 
 import ItemToDo from './itemToDo'
 
-export const ToDoList = props => {
+export const ToDoListItems = props => {
 
     const {
         items,
@@ -12,7 +12,7 @@ export const ToDoList = props => {
         saveItem,
         isHidden,
         checkedHide
-    } = props
+    } = props;
 
     const getRenderedItems = () => {
         return items.map((item, index) => {

@@ -7,7 +7,6 @@ import createSagaMiddleware from 'redux-saga';
 import {watchInit} from './sagas';
 
 import App from "./components/App";
-import toDoItems from "./components/store";
 import './style/form.css';
 import './style/loading.css';
 import './style/main.css';
@@ -19,6 +18,6 @@ sagaMiddleware.run(watchInit);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App initItems = {toDoItems}/>
+        <App/>
     </Provider>
     , document.getElementById('root'));
