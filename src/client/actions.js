@@ -29,4 +29,8 @@ const toggleButton = data => {
     };
 };
 
-export {setPage, setUserName, init, toggleButton};
+const login = data => {
+    return {type: types.LOGIN, payload: data};
+};
+
+export {setPage, setUserName, init, toggleButton, login};

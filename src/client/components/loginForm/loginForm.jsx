@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {login} from '../../actions';
 import {InputForm, verify, verifyRegister} from './logicForLogin';
 import MsgContext from "../MsgContext";
 
@@ -88,4 +90,5 @@ class LoginForm extends Component {
     }
     static contextType = MsgContext;
 }
-export default LoginForm;
+
+export default connect(null, {login})(LoginForm);

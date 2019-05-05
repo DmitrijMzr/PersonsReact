@@ -25,11 +25,6 @@ class App extends Component {
         this.props.init(this);
     }
 
-    login = data => {
-        this.props.setPage('main');
-        this.props.setUserName(data);
-    };
-
     hideMsg = () => {
         this.setState(() => ({msgData: {msgVisibility: 'hidden'}}));
     };
@@ -60,7 +55,7 @@ class App extends Component {
                 break;
             case 'login':
                 content = (
-                    <><div className="loginForm"><LoginForm login = {this.login}/></div><MsgBox/></>
+                    <><div className="loginForm"><LoginForm/></div><MsgBox/></>
                 );
                 break;
             case 'register':

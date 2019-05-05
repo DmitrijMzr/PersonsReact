@@ -35,10 +35,15 @@ button {
     width: 80%;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 1.5em 0;
     justify-content: space-between;
     align-items: center;
+}
+@media (min-width: 480px) {
+    .header {
+        flex-direction: row;
+    }
 }
 .header > .data__button{
     height: 60px;
@@ -54,13 +59,21 @@ button {
 }
 .create{
     display: flex;
-    margin-right: 10px;
+    flex-direction: column;
+    margin-right: 20px;
     /*order: 1;*/
+}
+@media (min-width: 550px) {
+    .create {
+        flex-direction: row;
+        margin-right: 10px;
+    }
 }
 @media (min-width: 730px) {
     .create {
         flex-direction: column;
         margin-right: 0;
+        width: 180px;
     }
 }
 .data__input {
@@ -125,7 +138,7 @@ button {
     padding: 1em;
 }
 .data__table {
-    width: 100%;
+    flex-grow: 1;
     margin-left: 25px;
     margin-right: 25px;
     padding: 1em;

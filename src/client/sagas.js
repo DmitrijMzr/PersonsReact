@@ -1,5 +1,5 @@
 
-import {takeEvery, put, call} from 'redux-saga/effects';
+import {takeEvery, put, call, all} from 'redux-saga/effects';
 import {logout as sendLogout, requestServerToPerson} from "./components/logic";
 import types from './action-types';
 
@@ -25,6 +25,24 @@ function* init(action) {
     }
 }
 
-export function* watchInit() {
+function* login(action){
+    yield put({type: types.SET_PAGE, payload: 'main'});
+    yield put({type: types.SET_USERNAME, payload: action.payload});
+}
+
+function* watchLogin(){
+    yield takeEvery(types.LOGIN, login);
+}
+
+function* watchInit() {
     yield takeEvery(types.INIT, init);
 }
+
+function* rootSaga(){
+    yield all([
+        watchInit(),
+        watchLogin()
+    ]);
+}
+
+export default rootSaga;

@@ -4,6 +4,7 @@ import Logout from "../../Logout";
 
 function Header(props) {
     const userName = props.userName;
+    console.log(userName, 'userName');
     return(
         <div className='header'>
             <h1>CRUD node.js</h1>
@@ -15,7 +16,7 @@ function Header(props) {
 
 const mapStateToProps = (state) => {
     return {
-        userName: state.userName
+        userName: state.common.userName
     };
 };
 
