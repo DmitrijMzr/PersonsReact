@@ -138,7 +138,48 @@ export default class Persons extends Component {
                     return {arrData};
                 });
             } else {
-                throw 'message';
+                throw message;
+            }
+        } catch (err) {
+            this.context.renderMsg(err, 'red');
+        }
+    };
+
+    update = async () => {
+        const inputs = {
+            personID: parseInt(this.state.inputs.id),
+            age: this.state.inputs.age,
+            firstName: this.state.inputs.fname,
+            lastName: this.state.inputs.lname
+        };
+        try {
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(inputs),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            };
+            const response = await fetch("http://localhost:4000/updateRow", options);
+            if (response.status !== 200) {
+                throw 'response error';
+            }
+            const message = await response.text();
+            if (message === 'OK') {
+                this.setState(state => {
+                    const arrData =  state.arrData.map(item => {
+                        if(item.personID === inputs.personID) {
+                            return inputs;
+                        } else {
+                            return item;
+                        }
+                    });
+                    //debugger;
+                    return {arrData};
+                });
+            } else {
+                throw message;
             }
         } catch (err) {
             this.context.renderMsg(err, 'red');
@@ -164,7 +205,7 @@ export default class Persons extends Component {
                         lname = {lname}
                         age = {age}
                     />
-                    <Buttons create = {this.create} deletePerson = {this.deletePerson}/>
+                    <Buttons create = {this.create} update = {this.update} deletePerson = {this.deletePerson}/>
                     <DataTable arrData = {arrData} />
                 </div>
             </React.Fragment>
