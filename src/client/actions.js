@@ -18,7 +18,7 @@ const setUserName = (userName) => {
 const init = (data) => {
     return {
         type: types.INIT,
-        payload: data
+        renderMsg: data
     };
 };
 

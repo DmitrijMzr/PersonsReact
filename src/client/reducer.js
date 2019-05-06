@@ -4,9 +4,6 @@ import {combineReducers} from 'redux';
 
 const commonReducer = (state = {page: 'pending', toggleButtonName: 'TodoList'}, action) => {
     const newState = Object.assign({}, state);
-    // if (action.type === types.SET_USERNAME) {
-    //     debugger;
-    // }
     switch (action.type) {
         case types.SET_PAGE:
             newState.page = action.payload;

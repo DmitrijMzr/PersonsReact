@@ -4,12 +4,11 @@ import {logout as sendLogout, requestServerToPerson} from "./components/logic";
 import types from './action-types';
 
 function* init(action) {
-    const _this = action.payload;
-    console.log('im here!');
+    const renderMsg = action.renderMsg;
     try {
         const data = yield call(requestServerToPerson);
         if (data.authorized) {
-            let page = localStorage.getItem('page');
+            let page = yield call([localStorage, 'getItem'], 'page');
             if (page === undefined) {
                 page = 'main';
             }
@@ -20,7 +19,7 @@ function* init(action) {
         }
     } catch (err) {
         if (err === 'request_error') {
-            _this.renderMsg('server error', 'red');
+            renderMsg('server error', 'red');
             console.log('server error in saga init');
         } else {
             console.log('error in saga init');

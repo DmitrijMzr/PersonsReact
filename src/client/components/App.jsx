@@ -22,7 +22,7 @@ class App extends Component {
     timeoutID = null;
 
     componentDidMount() {
-        this.props.init(this);
+        this.props.init(this.renderMsg);
     }
 
     hideMsg = () => {
