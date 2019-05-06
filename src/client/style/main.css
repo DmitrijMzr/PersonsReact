@@ -116,6 +116,7 @@ button {
     .columnButton {
         order: 3;
         flex-direction: column;
+        justify-content: flex-start;
     }
 }
 .row {

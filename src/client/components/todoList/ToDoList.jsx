@@ -4,6 +4,7 @@ import {ToDoListItems} from "./body/listToDo";
 import MsgBox from "../MsgBox";
 import ToggleButton from "../ToggleButton";
 import toDoItems from './store';
+import Header from "../header/header";
 
 export default class ToDoList extends Component {
     state = {
@@ -60,6 +61,7 @@ export default class ToDoList extends Component {
             <React.Fragment>
                 <div className={'app'}>
                     <ToggleButton/>
+                    <Header/>
                     <div className="app__todo">
                         <InputsHeader
                             addItem={this.addItem}

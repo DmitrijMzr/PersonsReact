@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {addPersonDataDB, requestServerToData} from "../logic";
-import Header from "./header/header";
+import Header from "../header/header";
 import CreatePersons from "./createPersons/createPersons";
 import MsgBox from "../MsgBox";
 import DataTable from "./dataTable/dataTable";

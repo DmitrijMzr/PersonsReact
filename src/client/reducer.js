@@ -17,13 +17,7 @@ const commonReducer = (state = {page: 'pending', toggleButtonName: 'TodoList'}, 
             return newState;
 
         case types.TOGGLE_BUTTON:
-            if (state.page === 'main'){
-                newState.page = 'todoList';
-                newState.toggleButtonName = 'Persons';
-            } else if (state.page === 'todoList'){
-                newState.page = 'main';
-                newState.toggleButtonName = 'TodoList';
-            }
+            newState.toggleButtonName = action.payload;
             return newState;
 
         default:

@@ -3,7 +3,7 @@ import types from './action-types';
 
 const setPage = (page) => {
     return {
-        type: types.SET_PAGE,
+        type: types.SET_AND_SAVE_PAGE,
         payload: page
     };
 };
@@ -22,10 +22,9 @@ const init = (data) => {
     };
 };
 
-const toggleButton = data => {
+const toggleButton = () => {
     return {
-        type: types.TOGGLE_BUTTON,
-        payload: data
+        type: types.TOGGLE_BUTTON_SAVE,
     };
 };
 
