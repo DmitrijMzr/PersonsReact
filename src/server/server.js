@@ -46,7 +46,7 @@ function checkUserInDataBase (login, password) {
                 throw err;
             }
             console.log("Connected!");
-            connectionDB.query("SELECT id, password FROM tbLogin where login=?", [login], function (err, result, fields) {
+            connectionDB.query("SELECT id, password FROM tblogin where login=?", [login], function (err, result, fields) {
                 if (err){
                     throw err;
                 }
