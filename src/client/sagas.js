@@ -9,7 +9,7 @@ function* init(action) {
         const data = yield call(requestServerToPerson);
         if (data.authorized) {
             let page = yield call([localStorage, 'getItem'], 'page');
-            if (page === undefined) {
+            if (!page) {
                 page = 'main';
             }
             yield put({type: types.SET_AND_SAVE_PAGE, payload: page});
@@ -30,7 +30,7 @@ function* init(action) {
 
 function* login(action){
     let page = localStorage.getItem('page');
-    if (page === undefined) {
+    if (!page) {
         page = 'main';
     }
     yield put({type: types.SET_AND_SAVE_PAGE, payload: page});
@@ -44,8 +44,11 @@ function* setAndSavePage(action) {
         case 'login':
         case 'register':
             break;
-        default:
+        case 'main':
+        case 'todoList':
             yield apply(localStorage, 'setItem', ['page', page]);
+        default:
+            console.log('no such page registered in setAndSavePage saga');
     }
     yield put({type: types.SET_PAGE, payload: page});
 }

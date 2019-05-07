@@ -214,55 +214,37 @@ function deleteRowPerson(req) {
     });
 }
 
-app.post('/updateRow', (req, res) => {
-    updateRowPerson(req);
-    res.end();
+app.post('/updateRow', async (req, res) => {
+    try {
+        await updateRowPerson(req);
+        res.end('OK');
+    } catch (err) {
+        console.log(err, 'catching')
+        res.end(err);
+    }
 });
 
 function updateRowPerson(req) {
-    const connectionDB3 = getConnection();
-    connectionDB3.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
-        connectionDB3.query(`UPDATE tbperson SET firstName = "${req.body.firstName}" WHERE personID = "${req.body.id}" AND loginID = "${currentID[0].id}"`, function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
+    const connectionDB = getConnection();
+    return new Promise((resolve, reject) => {
+        connectionDB.connect(function (err) {
+            if (err) {
+                console.log('im in mysql error')
+                return reject(err.sqlMessage);
+            }
+            const values = [req.body.firstName, req.body.lastName, req.body.age, req.body.personID, currentID];
+            connectionDB.query('UPDATE tbperson SET firstName = ?, lastName = ?, age = ? WHERE personID = ? AND loginID = ?', values, function (err, result) {
+                if (err) {
+                    console.log(err, 'err in 236')
+                    return reject(err.sqlMessage);
+                }
+                resolve();
+                console.log(result);
+            });
         });
     });
 
-    const connectionDB4 = getConnection();
-    connectionDB4.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
-        connectionDB4.query(`UPDATE tbperson SET lastName = "${req.body.lastName}" WHERE personID = "${req.body.id}" AND loginID = "${currentID[0].id}"`, function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-        });
-    });
-
-    const connectionDB5 = getConnection();
-    connectionDB5.connect(function (err) {
-        if (err) throw err;
-        console.log("Connected!");
-        connectionDB5.query(`UPDATE tbperson SET age = "${req.body.age}" WHERE personID = "${req.body.id}" AND loginID = "${currentID[0].id}"`, function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-        });
-    });
 }
-
-// function getIdUser(req) {
-//     const connectionIDDB = getConnection();
-//     connectionIDDB.connect(function (err) {
-//         if (err) throw err;
-//         console.log("Connected!");
-//         connectionIDDB.query(`SELECT id FROM tblogin WHERE login = "${req.body.login}"`, function (err, result, fields) {
-//             if (err) throw err;
-//             currentID = result;
-//             console.log(result);
-//         });
-//     });
-// }
 
 app.listen(process.env.PORT || 4000, () => console.log(`Listening on port ${process.env.PORT || 4000}!`));
 console.log('hello');

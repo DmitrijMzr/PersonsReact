@@ -49,7 +49,7 @@ class LoginForm extends Component {
         return (
             <div className="form-reg form-log">
                 <form id="form">
-                    <div className="header">
+                    <div className="header-form">
                         Member login
                     </div>
                     <input name='inputLogin'
@@ -81,6 +81,7 @@ class LoginForm extends Component {
                         Registration
                     </button>
                     <input id="response"
+                           className="input-response"
                            type="text"
                            autoComplete="off"
                     />
