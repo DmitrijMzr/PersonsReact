@@ -7,6 +7,7 @@ function* init(action) {
     const renderMsg = action.renderMsg;
     try {
         const data = yield call(requestServerToPerson);
+        //const data = {authorized: true, userName: 'Kostia'};
         if (data.authorized) {
             let page = yield call([localStorage, 'getItem'], 'page');
             if (!page) {

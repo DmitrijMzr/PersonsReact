@@ -1,0 +1,25 @@
+import React from 'react';
+
+function CreatePersons(props) {
+<<<<<<< HEAD
+    const {idChange, fnameChange, lnameChange, ageChange, fname, lname, age} = props;
+=======
+    const {idChange, fnameChange, lnameChange, ageChange, id, fname, lname, age} = props;
+>>>>>>> 28518f1e4675dc2bc792ebf777e36d75e28bbd38
+    const personID = props.id;
+    return(
+        <div className="create">
+            <input type="text" className="data__input" min="1" placeholder="Person ID" onChange = {idChange} value = {personID} autoComplete="off"/>
+<<<<<<< HEAD
+            <input type="text" className="data__input" placeholder="First name" onChange = {fnameChange} value = {fname} autoComplete="off"/>
+            <input type="text" className="data__input" placeholder="Last name" onChange = {lnameChange} value = {lname} autoComplete="off"/>
+            <input type="text" className="data__input" placeholder="Age" onChange = {ageChange} value = {age} autoComplete="off"/>
+=======
+            <input type="text" id="fname" className="data__input" placeholder="First name" onChange = {fnameChange} value = {fname} autoComplete="off"/>
+            <input type="text" id="lname" className="data__input" placeholder="Last name" onChange = {lnameChange} value = {lname} autoComplete="off"/>
+            <input type="text" id="age" className="data__input" placeholder="Age" onChange = {ageChange} value = {age} autoComplete="off"/>
+>>>>>>> 28518f1e4675dc2bc792ebf777e36d75e28bbd38
+        </div>
+    );
+}
+export default CreatePersons;
