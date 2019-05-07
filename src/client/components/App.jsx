@@ -8,6 +8,8 @@ import RegistrationForm from "./registrationForm/registrationForm";
 import Loading from "./loading/loading";
 import MsgContext from './MsgContext';
 import MsgBox from './MsgBox.jsx';
+//как сделать нормальное отображение ошибок в коносоли?
+
 
 class App extends Component {
     state = {

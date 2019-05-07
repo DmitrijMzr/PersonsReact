@@ -41,11 +41,20 @@ export default class Persons extends Component {
             });
     };
 
+    validateInt = (val, message) => {
+        if (isNaN(val) || val.trim() === '') {
+            this.context.renderMsg(message);
+            return val;
+        } else {
+            return parseInt(val);
+        }
+    };
+
     idChange = (e) => {
-        const value = e.target.value;
+        const value = this.validateInt(e.target.value, 'wrong input in Person ID');
         this.setState(state => {
             const inputs = Object.assign({}, state.inputs);
-            inputs.id = parseInt(value);
+            inputs.id = value;
             return {inputs};
         });
     };
@@ -69,7 +78,7 @@ export default class Persons extends Component {
     };
 
     ageChange = (e) => {
-        const value = e.target.value;
+        const value = this.validateInt(e.target.value, 'wrong input in Age');
         this.setState(state => {
             const inputs = Object.assign({}, state.inputs);
             inputs.age = value;

@@ -3,7 +3,7 @@ import {logout as sendLogout} from "./logic";
 import MsgContext from "./MsgContext";
 import {setPage, setUserName} from "../actions";
 import {connect} from "react-redux";
-
+import classNames from 'classnames';
 
 class Logout extends Component {
     logout = () =>{
@@ -22,9 +22,10 @@ class Logout extends Component {
             });
     };
     render() {
-        return <button className='data__button' onClick={this.logout}>Logout</button>;
+        return <button className = {classNames(['data__button', this.props.classList])} onClick={this.logout}>Logout</button>;
     }
     static contextType = MsgContext;
+    static defaultProps = {classList: []};
 }
 
 export default connect(null, {setPage, setUserName})(Logout);

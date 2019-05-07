@@ -10,7 +10,7 @@ function* init(action) {
         //const data = {authorized: true, userName: 'Kostia'};
         if (data.authorized) {
             let page = yield call([localStorage, 'getItem'], 'page');
-            if (page === undefined) {
+            if (!page) {
                 page = 'main';
             }
             yield put({type: types.SET_AND_SAVE_PAGE, payload: page});
@@ -31,7 +31,7 @@ function* init(action) {
 
 function* login(action){
     let page = localStorage.getItem('page');
-    if (page === undefined) {
+    if (!page) {
         page = 'main';
     }
     yield put({type: types.SET_AND_SAVE_PAGE, payload: page});
