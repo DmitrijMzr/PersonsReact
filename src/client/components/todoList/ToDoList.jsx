@@ -61,7 +61,7 @@ export default class ToDoList extends Component {
             <React.Fragment>
                 <div className={'app'}>
                     <ToggleButton/>
-                    <Logout/>
+                    <Logout classList="data__button_logout"/>
                     <div className="app__todo">
                         <InputsHeader
                             addItem={this.addItem}

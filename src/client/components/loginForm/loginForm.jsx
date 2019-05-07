@@ -80,11 +80,6 @@ class LoginForm extends Component {
                             onClick = {this.register}>
                         Registration
                     </button>
-                    <input id="response"
-                           className="input-response"
-                           type="text"
-                           autoComplete="off"
-                    />
                 </form>
             </div>
         );

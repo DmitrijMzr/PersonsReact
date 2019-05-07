@@ -4,7 +4,6 @@ function InputForm (login, pass) {
 }
 
 function verify(login, pass) {
-    const inputResponse = document.getElementById('response');
     const obj = new InputForm(login, pass);
     const request = new XMLHttpRequest();
     request.open("POST", "http://localhost:4000/login", true);
@@ -20,11 +19,11 @@ function verify(login, pass) {
                         resolve();
                     } else {
                         console.log(request);
-                        inputResponse.value = request.responseText;
+                        console.log(request.responseText);
                         reject(request.responseText);
                     }
                 } else {
-                    inputResponse.value = 'exclusively bad request';
+                    console.log('exclusively bad request');
                     reject('exclusively bad request');
                 }
             }
@@ -34,7 +33,6 @@ function verify(login, pass) {
 }
 
 function verifyRegister(login, pass) {
-    const inputResponse = document.getElementById('response');
     const obj = new InputForm(login, pass);
     const request = new XMLHttpRequest();
     request.open("POST", "http://localhost:4000/register", true);
@@ -49,11 +47,11 @@ function verifyRegister(login, pass) {
                     if (request.responseText === 'OK') {
                         resolve();
                     } else {
-                        inputResponse.value = request.responseText;
+                        console.log(request.responseText);
                         reject(request.responseText);
                     }
                 } else {
-                    inputResponse.value = 'exclusively bad request';
+                    console.log('exclusively bad request');
                     reject('exclusively bad request');
                 }
             }

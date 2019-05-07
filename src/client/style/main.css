@@ -116,8 +116,10 @@ button {
 }
 .msgBox{
     position: absolute;
-    top:15%;
-    left: 40%;
+    top: 20%;
+    /*left: 40%;*/
+    width: 100%;
+    text-align: center;
     color: red;
 }
 .container {
